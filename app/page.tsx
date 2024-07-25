@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import { useState } from 'react';
+import { ReactTyped } from 'react-typed';
 
 export default function TextInput() {
   const [message, setMessage] = useState('');
@@ -30,30 +31,20 @@ export default function TextInput() {
       })
       .then((response) => {
         const data = response.data;
-        data.replace(
-          /\n/g,
-          '<br />',
-          /\t/g,
-          '  ',
-          /\s\s/g,
-          ' ',
-          /<br \/>/g,
-          '\n'
-        );
-
         setResponseData(data);
         setMessage('');
       });
   };
+
   return (
     <div className='flex items-center justify-center p-24 dark:bg-gray-900 min-h-screen'>
       <div className='flex flex-col w-[40rem] h-auto max-h-[100vh] border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden'>
         <div className='flex-1 overflow-y-auto p-4'>
-          {responseData && (
-            <div className='flex flex-col space-y-4'>
-              <p className='text-sm text-gray-300'>{responseData}</p>
-            </div>
-          )}
+          <div className='flex flex-col space-y-4'>
+            <p className='text-sm text-gray-300'>
+              <ReactTyped strings={[responseData]} typeSpeed={10} />
+            </p>
+          </div>
         </div>
         <div className='flex p-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700'>
           <input
