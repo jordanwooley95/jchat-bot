@@ -17,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <main>{children}</main>
+        <div className='flex items-center justify-center p-24 dark:bg-gray-900 min-h-screen'>
+          <main>{children}</main>
+        </div>
       </body>
     </html>
   );

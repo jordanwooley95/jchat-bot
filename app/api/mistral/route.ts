@@ -4,7 +4,6 @@ export async function POST(req: any, res: any): Promise<Response> {
   try {
     const apiKey = process.env.MISTRAL_API_KEY;
     if (!apiKey) {
-      // Return an error response if the API key is missing
       return new Response('API key is missing', { status: 400 });
     }
 
@@ -28,7 +27,7 @@ export async function POST(req: any, res: any): Promise<Response> {
         responseText += chunk.choices[0].delta.content;
       }
     }
-    await new Promise((resolve) => setTimeout(resolve, 2000)); //thinking time
+    //await new Promise((resolve) => setTimeout(resolve, 2000)); //thinking time
 
     // Return the chat response as a Response object
     return new Response(responseText, { status: 200 });

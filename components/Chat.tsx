@@ -3,6 +3,7 @@
 import axios from 'axios';
 import { useState, useRef, useEffect } from 'react';
 import { ReactTyped } from 'react-typed';
+import { Suspense } from 'react';
 
 export default function Chat() {
   const [message, setMessage] = useState('');
@@ -68,15 +69,15 @@ export default function Chat() {
   }, [sortedCombinedLog]);
 
   return (
-    <div className='flex items-center justify-center p-24 dark:bg-gray-900 min-h-screen'>
-      <div className='flex flex-col w-[60rem] h-[80vh] max-h-[80vh] border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden'>
-        <div className='flex-1 overflow-y-auto p-4'>
-          <div className='flex flex-col space-y-8'>
-            <div className='block'>
-              <p className='inline-block max-w-[50%] text-sm mb-4 p-4 border rounded-lg text-gray-300 text-left ml-2 border-gray-300 bg-gray-800'>
-                {originalMessage}
-              </p>
-            </div>
+    <div className='flex flex-col w-[60rem] h-[80vh] max-h-[80vh] border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden'>
+      <div className='flex-1 overflow-y-auto p-4'>
+        <div className='flex flex-col space-y-8'>
+          <div className='block'>
+            <p className='inline-block max-w-[50%] text-sm mb-4 p-4 border rounded-lg text-gray-300 text-left ml-2 border-gray-300 bg-gray-800'>
+              {originalMessage}
+            </p>
+          </div>
+          <Suspense fallback={<p>Thinking...</p>}>
             {sortedCombinedLog.map((log, index) => (
               <p
                 key={index}
@@ -98,27 +99,27 @@ export default function Chat() {
                 )}
               </p>
             ))}
-          </div>
-          <div ref={bottom}></div>
+          </Suspense>
         </div>
+        <div ref={bottom}></div>
+      </div>
 
-        <div className='flex p-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700'>
-          <input
-            onChange={handleChange}
-            onKeyDown={handleKeyPress}
-            type='text'
-            value={message}
-            placeholder='Type a message...'
-            aria-label='Type a message'
-            className='flex-1 mr-4 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
-          />
-          <button
-            onClick={handleClick}
-            className='bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400'
-          >
-            Send
-          </button>
-        </div>
+      <div className='flex p-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700'>
+        <input
+          onChange={handleChange}
+          onKeyDown={handleKeyPress}
+          type='text'
+          value={message}
+          placeholder='Type a message...'
+          aria-label='Type a message'
+          className='flex-1 mr-4 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+        />
+        <button
+          onClick={handleClick}
+          className='bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400'
+        >
+          Send
+        </button>
       </div>
     </div>
   );
