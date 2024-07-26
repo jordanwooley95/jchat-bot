@@ -77,29 +77,27 @@ export default function Chat() {
               {originalMessage}
             </p>
           </div>
-          <Suspense fallback={<p>Thinking...</p>}>
-            {sortedCombinedLog.map((log, index) => (
-              <p
-                key={index}
-                className={`inline-block max-w-[50%] text-sm mb-4 p-4 border rounded-lg ${
-                  log.type === 'response'
-                    ? 'text-gray-300 text-left ml-2 border-gray-300 bg-gray-800 self-start'
-                    : 'text-gray-300 text-right mr-2 border-gray-300 bg-blue-700 self-end'
-                }`}
-              >
-                {log.type === 'response' ? (
-                  <ReactTyped
-                    showCursor={false}
-                    strings={[log.content]}
-                    typeSpeed={10}
-                    onStringTyped={scrollToBottom}
-                  />
-                ) : (
-                  log.content
-                )}
-              </p>
-            ))}
-          </Suspense>
+          {sortedCombinedLog.map((log, index) => (
+            <p
+              key={index}
+              className={`inline-block max-w-[50%] text-sm mb-4 p-4 border rounded-lg ${
+                log.type === 'response'
+                  ? 'text-gray-300 text-left ml-2 border-gray-300 bg-gray-800 self-start'
+                  : 'text-gray-300 text-right mr-2 border-gray-300 bg-blue-700 self-end'
+              }`}
+            >
+              {log.type === 'response' ? (
+                <ReactTyped
+                  showCursor={false}
+                  strings={[log.content]}
+                  typeSpeed={10}
+                  onStringTyped={scrollToBottom}
+                />
+              ) : (
+                log.content
+              )}
+            </p>
+          ))}
         </div>
         <div ref={bottom}></div>
       </div>
